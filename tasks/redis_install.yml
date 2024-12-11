@@ -1,6 +1,6 @@
 ---
 - name: Installs Redis
-  apt:
+  ansible.builtin.apt:
     pkg: redis-server
     state: present
   tags:

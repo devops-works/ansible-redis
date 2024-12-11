@@ -21,7 +21,7 @@ redis_pidfile: /var/run/redis/redis-server.pid
 redis_port: 6379
 
 redis_rdb_backup_keep: 10
-redis_rdb_backup_cron_hour: False
+redis_rdb_backup_cron_hour: false
 redis_rdb_backup_destination: /var/backups/redis
 redis_rdb_backup_s3bucket: false
 redis_rdb_backup_gcloudbucket: false

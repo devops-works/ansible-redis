@@ -4,6 +4,8 @@ galaxy_info:
   description: Redis role
   company: DevopsWorks
   license: MIT
+  role_name: redis_role
+  namespace: devopsworks
   min_ansible_version: "2.14"
   platforms:
     - name: Ubuntu

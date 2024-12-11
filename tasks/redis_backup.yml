@@ -4,21 +4,21 @@
 #
 #
 - name: Installs backup script
-  template:
+  ansible.builtin.template:
     src: redis_rdb_backup.sh.j2
     dest: /usr/local/bin/redis_rdb_backup
-    mode: 0700
+    mode: "0700"
 
 - name: Ensures backup destination exists
-  file:
+  ansible.builtin.file:
     path: "{{ redis_rdb_backup_destination }}"
     state: directory
-    mode: 0700
+    mode: "0700"
     owner: root
     group: root
 
 - name: Adds backup crontab entry
-  cron:
+  ansible.builtin.cron:
     name: Backups Redis RDB
     job: /usr/local/bin/redis_rdb_backup > /dev/null
     user: root

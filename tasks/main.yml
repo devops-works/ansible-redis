@@ -1,5 +1,6 @@
 ---
-- include_tasks:
+- name: Check required vars
+  ansible.builtin.include_tasks:
     file: check_vars.yml
     apply:
       tags:
@@ -9,7 +10,8 @@
   tags:
     - always
 
-- include_tasks:
+- name: Install redis
+  ansible.builtin.include_tasks:
     file: redis_install.yml
     apply:
       tags:
@@ -18,7 +20,8 @@
   tags:
     - always
 
-- include_tasks:
+- name: Configure redis
+  ansible.builtin.include_tasks:
     file: redis_configure.yml
     apply:
       tags:
@@ -27,7 +30,8 @@
   tags:
     - always
 
-- include_tasks:
+- name: Configure sentinel
+  ansible.builtin.include_tasks:
     file: redis_sentinel.yml
     apply:
       tags:
@@ -37,7 +41,8 @@
   tags:
     - always
 
-- include_tasks:
+- name: Datadoc suport
+  ansible.builtin.include_tasks:
     file: redis_datadog.yml
     apply:
       tags:
@@ -49,7 +54,8 @@
   tags:
     - always
 
-- include_tasks:
+- name: Backup setup
+  ansible.builtin.include_tasks:
     file: redis_backup.yml
     apply:
       tags:
