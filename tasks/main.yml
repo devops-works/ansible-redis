@@ -1,0 +1,62 @@
+---
+- include_tasks:
+    file: check_vars.yml
+    apply:
+      tags:
+        - redis
+        - redis:check
+        - check
+  tags:
+    - always
+
+- include_tasks:
+  file: redis_install.yml
+  apply:
+    tags:
+      - redis
+      - redis:install
+  tags:
+    - always
+
+- include_tasks:
+  file: redis_configure.yml
+  apply:
+    tags:
+      - redis
+      - redis:config
+  tags:
+    - always
+
+- include_tasks:
+    file: redis_sentinel.yml
+    apply:
+      tags:
+        - redis
+        - redis:sentinel
+  when: redis_sentinel_server_group | default(false)
+  tags:
+    - always
+
+- include_tasks:
+    file: redis_datadog.yml
+    apply:
+      tags:
+        - redis
+        - redis:redis:sentinel
+        - datadog
+        - redis:datadog
+  when: datadog_enabled | default(false)
+  tags:
+    - always
+
+- include_tasks:
+    file: redis_backup.yml
+    apply:
+      tags:
+        - redis
+        - redis:sentinel
+        - datadog
+        - backup
+  when: redis_rdb_backup_keep > 0
+  tags:
+    - always

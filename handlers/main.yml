@@ -1,0 +1,37 @@
+---
+# yamllint disable rule:line-length
+- name: Restart redis
+  service:
+    name: redis-server
+    state: restarted
+  notify:
+    - Find default Redis interface
+    - Find explicit Redis interface
+    - Check redis
+
+- name: Find default Redis interface
+  set_fact:
+    __redis_listen_ip: "{{ ansible_default_ipv4.address }}"
+
+- name: Find explicit Redis interface
+  set_fact:
+    __redis_listen_ip: "{{ hostvars[inventory_hostname]['ansible_' + redis_bind_interface].ipv4.address }}"
+  when: 'redis_bind_interface != "all"'
+
+- name: Check redis
+  wait_for:
+    host: "{{ __redis_listen_ip }}"
+    port: "{{ redis_port }}"
+    timeout: 10
+
+- name: Restart sentinel
+  service:
+    name: redis-sentinel
+    state: restarted
+  notify: Check sentinel
+
+- name: Check sentinel
+  wait_for:
+    host: "{{ redis_sentinel_bind }}"
+    port: "{{ redis_sentinel_port }}"
+    timeout: 10

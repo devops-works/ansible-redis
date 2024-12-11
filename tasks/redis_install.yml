@@ -1,0 +1,9 @@
+---
+- name: Installs Redis
+  apt:
+    pkg: redis-server
+    state: present
+  tags:
+    - redis:install
+    - redis
+    - install
