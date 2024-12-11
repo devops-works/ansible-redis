@@ -10,20 +10,20 @@
     - always
 
 - include_tasks:
-  file: redis_install.yml
-  apply:
-    tags:
-      - redis
-      - redis:install
+    file: redis_install.yml
+    apply:
+      tags:
+        - redis
+        - redis:install
   tags:
     - always
 
 - include_tasks:
-  file: redis_configure.yml
-  apply:
-    tags:
-      - redis
-      - redis:config
+    file: redis_configure.yml
+    apply:
+      tags:
+        - redis
+        - redis:config
   tags:
     - always
 
