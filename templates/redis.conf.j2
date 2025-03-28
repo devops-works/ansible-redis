@@ -126,6 +126,8 @@ logfile /var/log/redis/redis.log
 # dbid is a number between 0 and 'databases'-1
 databases {{ redis_databases }}
 
+protected-mode {{ redis_protected_mode | default('yes') }}
+
 ################################ SNAPSHOTTING  ################################
 #
 # Save the DB on disk:
